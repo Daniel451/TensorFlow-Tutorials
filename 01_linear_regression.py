@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import tensorflow as tf
 import numpy as np
 
@@ -17,17 +19,18 @@ def model(X, w):
 w = tf.Variable(0.0, name="weights")  # create a shared variable (like theano.shared) for the weight matrix
 y_model = model(X, w)
 
-cost = (tf.pow(Y - y_model, 2))  # use sqr error for cost function
+cost = tf.square(Y - y_model) # use square error for cost function
 
 train_op = tf.train.GradientDescentOptimizer(0.01).minimize(
     cost)  # construct an optimizer to minimize cost and fit line to my data
 
-sess = tf.Session()
-init = tf.initialize_all_variables()  # you need to initialize variables (in this case just variable W)
-sess.run(init)
+# Launch the graph in a session
+with tf.Session() as sess:
+    # you need to initialize variables (in this case just variable W)
+    tf.initialize_all_variables().run()
 
-for i in xrange(100):
-    for (x, y) in zip(trX, trY):
-        sess.run(train_op, feed_dict={X: x, Y: y})
+    for i in range(100):
+        for (x, y) in zip(trX, trY):
+            sess.run(train_op, feed_dict={X: x, Y: y})
 
-print(sess.run(w))  # something around 2
+    print(sess.run(w))  # It should be something around 2

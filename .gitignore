@@ -58,3 +58,6 @@ target/
 
 # DataDir
 MNIST_data/
+
+# OSX stuff
+.DS_Store
