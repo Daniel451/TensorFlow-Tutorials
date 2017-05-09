@@ -13,7 +13,7 @@ Y = tf.placeholder("float")
 
 
 def model(X, w):
-    return tf.mul(X, w)  # lr is just X*w so this model line is pretty simple
+    return tf.multiply(X, w) # lr is just X*w so this model line is pretty simple
 
 
 w = tf.Variable(0.0, name="weights")  # create a shared variable (like theano.shared) for the weight matrix
@@ -27,7 +27,7 @@ train_op = tf.train.GradientDescentOptimizer(0.01).minimize(
 # Launch the graph in a session
 with tf.Session() as sess:
     # you need to initialize variables (in this case just variable W)
-    tf.initialize_all_variables().run()
+    tf.global_variables_initializer().run()
 
     for i in range(100):
         for (x, y) in zip(trX, trY):
